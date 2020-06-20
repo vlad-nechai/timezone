@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Set;
 
 @RestController
@@ -20,7 +17,7 @@ public class TimezoneController {
 
     private final TimezoneService service;
 
-    @GetMapping
+    @GetMapping("/time")
     public String getCurrentTime(@RequestParam @Nullable String zoneId) {
         return service.getDefaultTime(zoneId);
     }

@@ -12,7 +12,7 @@ public class TimezoneService {
     public String getDefaultTime(String zoneId) {
         // default zone is system default
         ZoneId zone = zoneId != null ? ZoneId.of(zoneId) : ZoneId.systemDefault() ;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH : mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return ZonedDateTime.now(zone).format(formatter);
     }
 
