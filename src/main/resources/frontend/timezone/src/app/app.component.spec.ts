@@ -22,7 +22,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('timezone');
   });
 
-  it('should render title', () => {
+  it('should render time', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;

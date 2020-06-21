@@ -1,18 +1,50 @@
 <div class="container h-100" role="main">
 
-
     <div class="row align-items-center h-100">
       <div class="col-6 mx-auto">
-        <div class="row">
-          <div class="col align-self-center">
-            <h1 class="text-center">Morning Sunshine!</h1>
+
+        <!--Morning greeting-->
+        <ng-container *ngIf="morning">
+          <div class="row">
+            <div class="col align-self-center">
+              <h1 class="text-center">Morning Sunshine!</h1>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col align-self-center">
-            <img src="assets/images/morning.jpg" class="mx-auto d-block" alt="morning">
+          <div class="row">
+            <div class="col align-self-center">
+              <img src="assets/images/morning.jpg" class="mx-auto d-block" alt="morning">
+            </div>
           </div>
-        </div>
+        </ng-container>
+
+        <!--Day greeting-->
+        <ng-container *ngIf="day">
+          <div class="row">
+            <div class="col align-self-center">
+              <h1 class="text-center">Good day!</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col align-self-center">
+              <img src="assets/images/day.jpg" class="mx-auto d-block" alt="morning">
+            </div>
+          </div>
+        </ng-container>
+
+        <!--Night greeting-->
+        <ng-container *ngIf="night">
+          <div class="row">
+            <div class="col align-self-center">
+              <h1 class="text-center">Nighty night!</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col align-self-center">
+              <img src="assets/images/night.png" class="mx-auto d-block" alt="morning">
+            </div>
+          </div>
+        </ng-container>
+
         <div class="row">
           <div class="col-8">
             <div class="input-group">
@@ -28,7 +60,7 @@
             </div>
           </div>
           <div class="col">
-            <h2>{{title}}</h2>
+            <h3>{{time | date:'shortTime'}}</h3>
           </div>
         </div>
       </div>

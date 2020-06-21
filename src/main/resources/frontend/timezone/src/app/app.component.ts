@@ -1,33 +1,70 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimezoneService} from "./services/timezone.service";
+import * as moment from 'moment';
+import {Moment} from 'moment';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title: string;
+export class AppComponent implements OnInit, OnDestroy {
+  time: Moment;
   timezones: string[];
+  private subscriptions: Subscription[] = [];
+  private morningStart = moment("6:00", "H:mm");
+  private dayStart = moment("12:00", "H:mm");
+  private nightStart = moment("21:00", "H:mm");
 
-  constructor(private service: TimezoneService) {}
+  constructor(private service: TimezoneService) {
+  }
+
+  get morning(): boolean {
+    return this.time.isAfter(this.dayStart) && this.time.isBefore(this.nightStart);
+  }
+
+  get day(): boolean {
+    return this.time.isBefore(this.morningStart) && this.time.isAfter(this.nightStart)
+  }
+
+  get night(): boolean {
+    return !this.day && !this.morning;
+  }
 
   ngOnInit(): void {
     // load default time
-    this.service.getTime().subscribe((time: string) => {
-      this.title = time;
-    });
-
+    this.loadDefaultTime();
     // load timezones
-    this.service.getTimezone().subscribe((zones:string[]) => {
-      this.timezones = zones;
-    });
+    this.loadTimeZones();
   }
 
   selectTimezone(newTimezone: string): void {
-    this.service.getTime(newTimezone).subscribe((time:string) => {
-      console.log(time);
-      this.title = time;
-    })
+    this.subscriptions.push(
+      this.service.getTime(newTimezone).subscribe((time: string) => {
+        this.time = moment(time, "H:mm");
+      })
+    );
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  private loadDefaultTime(): void {
+    this.subscriptions.push(
+      this.service.getTime().subscribe((time: string) => {
+        this.time = moment(time, "H:mm");
+      })
+    );
+  }
+
+  private loadTimeZones(): void {
+    this.subscriptions.push(
+      this.service.getTimezone().subscribe((zones: string[]) => {
+        this.timezones = zones;
+      })
+    );
+  }
+
 }
