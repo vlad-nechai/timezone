@@ -21,15 +21,21 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   get morning(): boolean {
-    return this.time.isAfter(this.dayStart) && this.time.isBefore(this.nightStart);
+    if (this.time !== undefined) {
+      return this.time.isAfter(this.morningStart) && this.time.isBefore(this.dayStart);
+    }
   }
 
   get day(): boolean {
-    return this.time.isBefore(this.morningStart) && this.time.isAfter(this.nightStart)
+    if (this.time !== undefined) {
+      return this.time.isAfter(this.dayStart) && this.time.isBefore(this.nightStart)
+    }
   }
 
   get night(): boolean {
-    return !this.day && !this.morning;
+    if (this.time !== undefined) {
+      return !this.day && !this.morning;
+    }
   }
 
   ngOnInit(): void {
