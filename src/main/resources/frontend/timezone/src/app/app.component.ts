@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
 
     // load timezones
     this.service.getTimezone().subscribe((zones:string[]) => {
-      console.log(zones);
       this.timezones = zones;
     });
   }
