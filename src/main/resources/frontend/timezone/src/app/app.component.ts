@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TimezoneService} from "./services/timezone.service";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -8,12 +7,27 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'timezone';
+  title: string;
+  timezones: string[];
 
   constructor(private service: TimezoneService) {}
 
   ngOnInit(): void {
+    // load default time
     this.service.getTime().subscribe((time: string) => {
+      this.title = time;
+    });
+
+    // load timezones
+    this.service.getTimezone().subscribe((zones:string[]) => {
+      console.log(zones);
+      this.timezones = zones;
+    });
+  }
+
+  selectTimezone(newTimezone: string): void {
+    this.service.getTime(newTimezone).subscribe((time:string) => {
+      console.log(time);
       this.title = time;
     })
   }

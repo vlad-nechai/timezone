@@ -9,11 +9,11 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="timezones">Timezones</label>
             </div>
-            <select class="custom-select" id="timezones">
+            <select class="custom-select" id="timezones" #timezoneSelect (change)="selectTimezone(timezoneSelect.value)">
               <option selected>Choose...</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option *ngFor="let zone of timezones" [value]="zone">
+                {{zone}}
+              </option>
             </select>
           </div>
         </div>

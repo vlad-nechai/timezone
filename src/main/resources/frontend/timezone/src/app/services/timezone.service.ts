@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -11,8 +11,19 @@ export class TimezoneService {
 
   constructor(private http: HttpClient) { }
 
-  getTime() {
-    return this.http.get(`${(this.apiUrl)}/time`);
+  getTime(timezone?: string) {
+
+    let params = new HttpParams();
+    if (timezone !== null && timezone !== undefined) {
+      params = new HttpParams()
+        .set('zoneId', timezone);
+    }
+
+    return this.http.get(`${(this.apiUrl)}/time`,
+      {
+        params: params,
+        responseType: 'text'
+      });
   }
 
   getTimezone() {
