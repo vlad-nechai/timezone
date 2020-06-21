@@ -1,7 +1,7 @@
 <div class="container h-100" role="main">
 
     <div class="row align-items-center h-100">
-      <div class="col-6 mx-auto">
+      <div class="col-lg-6 mx-auto">
 
         <!--Morning greeting-->
         <ng-container *ngIf="morning">
@@ -46,7 +46,7 @@
         </ng-container>
 
         <div class="row">
-          <div class="col-8">
+          <div class="col-lg-8 col-md-9">
             <div class="input-group">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="timezones">Timezones</label>
@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="col">
-            <h3>{{time | date:'shortTime'}}</h3>
+            <h3 class="text-center text-md-left">{{time | date:'shortTime'}}</h3>
           </div>
         </div>
       </div>
