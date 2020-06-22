@@ -41,7 +41,7 @@ public class TimezoneController {
     @Operation(summary = "Get available timezones", description = "Get normalized set with available timezones", tags = { "Timezone" })
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "successful operation"))
     @GetMapping(value = "/zones", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> getTimezones() {
+    public ResponseEntity<List<Map<String, String>>> getTimezones() {
         return ResponseEntity.ok(service.getTimezones());
     }
 
