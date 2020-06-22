@@ -1,7 +1,9 @@
 package com.cellwerk.timezone.controllers;
 
+import com.cellwerk.timezone.services.TimezoneException;
 import com.cellwerk.timezone.services.TimezoneService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,13 @@ public class TimezoneController {
     }
 
     @GetMapping("/zones")
-    public Set<String> getTimezones() {
-        return service.getTimezones();
+    public ResponseEntity<Set<String>> getTimezones() {
+        return ResponseEntity.ok(service.getTimezones());
+    }
+
+    @ExceptionHandler(TimezoneException.class)
+    public ResponseEntity<String> handleException(TimezoneException exception) {
+
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
