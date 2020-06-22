@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -39,7 +41,7 @@ public class TimezoneController {
     @Operation(summary = "Get available timezones", description = "Get normalized set with available timezones", tags = { "Timezone" })
     @ApiResponses(value = @ApiResponse(responseCode = "200", description = "successful operation"))
     @GetMapping(value = "/zones", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Set<String>> getTimezones() {
+    public ResponseEntity<List<String>> getTimezones() {
         return ResponseEntity.ok(service.getTimezones());
     }
 
