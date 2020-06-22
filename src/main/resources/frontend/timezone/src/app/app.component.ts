@@ -3,6 +3,7 @@ import {TimezoneService} from "./services/timezone.service";
 import * as moment from 'moment';
 import {Moment} from 'moment';
 import {Subscription} from "rxjs";
+import {TimezoneModel} from "./models/timezone.model";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import {Subscription} from "rxjs";
 })
 export class AppComponent implements OnInit, OnDestroy {
   time: Moment;
-  timezones: string[];
+  timezones: TimezoneModel[];
   private subscriptions: Subscription[] = [];
   private morningStart = moment("6:00", "H:mm");
   private dayStart = moment("12:00", "H:mm");
@@ -67,7 +68,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private loadTimeZones(): void {
     this.subscriptions.push(
-      this.service.getTimezone().subscribe((zones: string[]) => {
+      this.service.getTimezone().subscribe((zones: TimezoneModel[]) => {
         this.timezones = zones;
       })
     );

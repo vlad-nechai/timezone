@@ -53,8 +53,8 @@
               </div>
               <select class="custom-select" id="timezones" #timezoneSelect (change)="selectTimezone(timezoneSelect.value)">
                 <option selected>Choose...</option>
-                <option *ngFor="let zone of timezones" [value]="zone">
-                  {{zone}}
+                <option *ngFor="let zone of timezones" [value]="zone.id">
+                  {{zone.name}}
                 </option>
               </select>
             </div>
