@@ -11,7 +11,7 @@ public class TimezoneException extends RuntimeException {
 
     public TimezoneException(String zone, String message) {
         super(message);
-        this.message = message;
         this.zone = zone;
+        this.message = message;
     }
 }

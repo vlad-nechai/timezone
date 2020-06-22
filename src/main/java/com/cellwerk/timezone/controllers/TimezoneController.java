@@ -3,6 +3,7 @@ package com.cellwerk.timezone.controllers;
 import com.cellwerk.timezone.services.TimezoneException;
 import com.cellwerk.timezone.services.TimezoneService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
-@RequestMapping
+@Slf4j
 @AllArgsConstructor
 public class TimezoneController {
 
@@ -31,6 +32,8 @@ public class TimezoneController {
 
     @ExceptionHandler(TimezoneException.class)
     public ResponseEntity<String> handleException(TimezoneException exception) {
+        log.warn("TimezoneException occurred for zone: {} with a message: {}",
+                 exception.getZone(), exception.getMessage());
 
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
